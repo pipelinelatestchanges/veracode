@@ -94,7 +94,8 @@ jobs:
       - uses: actions/checkout@v6
         with:
           repository: ${{ inputs.owner }}/${{ inputs.repo }}
-          ref: ${{ inputs.ref }}
+          ref: ${{ inputs.sha }}
+          # ref: ${{ inputs.ref }}
           token: ${{ inputs.token }}
 
       - name: get archive
@@ -112,6 +113,7 @@ jobs:
         if: always()
         id: pipeline-scan
         uses: ship099/Veracode-pipeline-scan-action@analytics
+        # uses: veracode/Veracode-pipeline-scan-action@v1.0.23
         with:
           vid: ${{ secrets.VERACODE_API_ID }}
           vkey: ${{ secrets.VERACODE_API_KEY }}
@@ -123,9 +125,9 @@ jobs:
           summary_output_file: ${{ strategy.job-index }}-results.txt
           json_output: true
           json_output_file: ${{ strategy.job-index }}-results.json
-          filtered_json_output_file: ${{ strategy.job-index }}-filtered_results.json
+          # filtered_json_output_file: filtered-results.json
           artifact_name: ${{ matrix.file }}
-          debug: ${{ inputs.debug == true && '1' || '0' }}
+          debug: ${{ inputs.debug == 'true' && '1' || '0' }}
           workflow_app: true
     
       - name: Veracode Pipeline Results
@@ -144,6 +146,7 @@ jobs:
           fail_checks_on_error: ${{ inputs.break_build_on_error }} 
           filter_mitigated_flaws: ${{ inputs.filter_mitigated_flaws }}
           filtered_results_file: filtered-results.json
+          # filtered_results_file: ${{ strategy.job-index }}-filtered_results.json
 
       - name: Convert pipeline scan output to SARIF format
         if: ${{ inputs.create_code_scanning_alert && always() }}

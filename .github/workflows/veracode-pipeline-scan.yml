@@ -111,7 +111,7 @@ jobs:
       - name: Veracode Pipeline-Scan
         if: always()
         id: pipeline-scan
-        uses: veracode/Veracode-pipeline-scan-action@v1.0.25
+        uses: ship099/Veracode-pipeline-scan-action@analytics
         with:
           vid: ${{ secrets.VERACODE_API_ID }}
           vkey: ${{ secrets.VERACODE_API_KEY }}
@@ -143,7 +143,7 @@ jobs:
           fail_checks_on_policy: ${{ inputs.break_build_policy_findings }}
           fail_checks_on_error: ${{ inputs.break_build_on_error }} 
           filter_mitigated_flaws: ${{ inputs.filter_mitigated_flaws }}
-          filtered_results_file: ${{ strategy.job-index }}-filtered_results.json
+          filtered_results_file: filtered-results.json
 
       - name: Convert pipeline scan output to SARIF format
         if: ${{ inputs.create_code_scanning_alert && always() }}

@@ -94,5 +94,5 @@ veracode_iac_secrets_scan:
     trigger: true
     commands:
       - "Veracode IAC Scan" 
-  policy: "IAC_STATIC_COMBINED"
+  policy: "Vera Policy"
   

@@ -8,7 +8,7 @@ veracode_static_scan:
       - '*'
     branches_to_exclude:
   pull_request:
-    trigger: true 
+    trigger: true
     action:
       - opened
       - synchronize
@@ -94,3 +94,4 @@ veracode_iac_secrets_scan:
     trigger: false
     commands:
       - "Veracode IAC Scan"
+   policy: "veracode policy"    
